@@ -1,33 +1,17 @@
 import java.util.Arrays;
 
-public class MergeSorter<T extends Comparable<T>> implements SortingAlgorithm<T>{
-
-    private T[] arr;
+public class MergeSorter<T extends Comparable<T>> extends SortingAlgorithm<T> implements Sorter<T>{
 
     public MergeSorter(T[] a) {
-        arr = a;
+        super(a);
     }
 
     @Override
-    public T[] getArr() {
-        return arr;
+    public void sort() {
+        mergeSort(super.getArr());
     }
 
-    @Override
-    public void setArr(T[] newArr) {
-        arr = newArr;
-    }
-
-    @Override
-    public void printArr() {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]);
-            System.out.print(" ");
-        }
-        System.out.println();
-    }
-
-    public void merge(T[] a, T[] left, T[] right) {
+    private void merge(T[] a, T[] left, T[] right) {
         int i = 0, j = 0, k = 0;
 
         while (i < left.length && j < right.length) {
@@ -47,7 +31,7 @@ public class MergeSorter<T extends Comparable<T>> implements SortingAlgorithm<T>
         }
     }
 
-    public void mergeSort(T[] array) {
+    private void mergeSort(T[] array) {
         if (array.length <= 1) {
             return;
         }
@@ -59,10 +43,5 @@ public class MergeSorter<T extends Comparable<T>> implements SortingAlgorithm<T>
         mergeSort(left);
         mergeSort(right);
         merge(array, left, right);
-    }
-
-    @Override
-    public void sort() {
-        mergeSort(arr);
     }
 }
